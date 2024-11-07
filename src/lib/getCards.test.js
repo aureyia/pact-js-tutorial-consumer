@@ -1,7 +1,7 @@
 import { getCards} from "@/lib/getCards";
 import path from 'path'
 import axios from "axios";
-import { PactV3 } from '@pact-foundation/pact'
+import { PactV3, Matchers } from '@pact-foundation/pact'
 import { describe, it, expect } from "vitest";
 
 describe('API service', () => {
@@ -36,7 +36,7 @@ describe('API service', () => {
           headers: {
             'Content-Type': 'application/json; charset=utf-8'
           },
-          body: expectedBody,
+          body: Matchers.like(expectedBody),
         })
 
       return provider.executeTest(async (mockserver) => {
