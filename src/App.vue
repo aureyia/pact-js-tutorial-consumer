@@ -1,37 +1,39 @@
 <script setup>
-import HelloWorld from './components/Cards.vue'
-import TheWelcome from './components/TheWelcome.vue'
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from '@/components/ui/card'
+import {onMounted, ref} from "vue";
+import { getCards } from "@/lib/getCards.js";
+
+const cards = ref([])
+
+const fetchCards = async () => {
+  cards.value = await getCards();
+}
+
+onMounted(() => {
+  fetchCards()
+})
 </script>
 
 <template>
-  <Cards />
+  <div class="mx-5">
+    <Card class="mt-5" v-for="card in cards" :key="card.id">
+      <CardHeader>
+        <CardTitle>{{card.title}}</CardTitle>
+        <CardDescription>{{card.description}}</CardDescription>
+      </CardHeader>
+      <CardContent>
+        {{card.content}}
+      </CardContent>
+      <CardFooter>
+        {{card.footer}}
+      </CardFooter>
+    </Card>
+  </div>
 </template>
-
-<style scoped>
-header {
-  line-height: 1.5;
-}
-
-.logo {
-  display: block;
-  margin: 0 auto 2rem;
-}
-
-@media (min-width: 1024px) {
-  header {
-    display: flex;
-    place-items: center;
-    padding-right: calc(var(--section-gap) / 2);
-  }
-
-  .logo {
-    margin: 0 2rem 0 0;
-  }
-
-  header .wrapper {
-    display: flex;
-    place-items: flex-start;
-    flex-wrap: wrap;
-  }
-}
-</style>
