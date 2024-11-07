@@ -1,6 +1,6 @@
-import axios from 'axios'
+import axios from "axios";
 
 export const getCards = async () => {
-  const { data } = await axios.get('http://localhost:3000/cards')
-  return data
-}
+  const { data } = await axios.get("/cards");
+  return data;
+};

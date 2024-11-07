@@ -1,6 +1,9 @@
-import './assets/index.css'
+import "./assets/index.css";
 
-import { createApp } from 'vue'
-import App from './App.vue'
+import { createApp } from "vue";
+import App from "./App.vue";
+import axios from "axios";
 
-createApp(App).mount('#app')
+axios.defaults.baseURL = 'http://localhost:3000'
+
+createApp(App).mount("#app");
