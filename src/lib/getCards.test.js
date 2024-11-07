@@ -1,20 +1,12 @@
 import { getCards} from "@/lib/getCards";
-import path from 'path'
 import axios from "axios";
-import { PactV3, Matchers } from '@pact-foundation/pact'
-import { describe, it, expect } from "vitest";
+import { describe, test, expect, vi } from "vitest";
 
-describe('API service', () => {
-  const provider = new PactV3({
-    consumer: 'pact-js-tutorial-consumer',
-    provider: 'pact-js-tutorial-provider',
-    dir: path.resolve('.', 'pact/pacts'),
-    logLevel: 'DEBUG',
-  })
+vi.mock('axios')
 
-  describe('getCards()', () => {
-
-    const expectedBody = [
+describe("getCards()", () => {
+  test('return valid cards', async () => {
+    const cards = [
       {
         title: 'Example Title',
         description: 'Example description',
@@ -23,28 +15,12 @@ describe('API service', () => {
       },
     ];
 
-      it('returns the correct response', () => {
-      provider
-        .given('a patient is logged in')
-        .uponReceiving('a request for some data')
-        .withRequest({
-          method: 'GET',
-          path: '/cards',
-        })
-        .willRespondWith({
-          status: 200,
-          headers: {
-            'Content-Type': 'application/json; charset=utf-8'
-          },
-          body: Matchers.like(expectedBody),
-        })
-
-      return provider.executeTest(async (mockserver) => {
-        axios.defaults.baseURL = mockserver.url
-
-        const response = await getCards()
-        expect(response).to.eql(expectedBody)
-      })
+    axios.get.mockResolvedValue({
+      data: cards
     })
-  })
-})
+
+    const returnedCards = await getCards();
+
+    expect(returnedCards).toEqual(cards)
+  });
+});

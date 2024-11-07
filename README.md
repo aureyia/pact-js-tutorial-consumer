@@ -1,29 +1,29 @@
 # pact-js-tutorial-consumer
 
-This template should help get you started developing with Vue 3 in Vite.
+This consumer was set up using Vue 3 in Vite. Please refer to [the tutorial docs](https://github.com/aureyia/pact-js-tutorial) for context.
 
-## Recommended IDE Setup
+## Description
+The consumer expects a `/cards` endpoint to be available from [the provider](https://github.com/aureyia/pact-js-tutorial-provider). It uses this data to then display 3 sets of cards.
 
-[VSCode](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (and disable Vetur).
+![Image showing 3 cards elements filled with dummy text](docs/cards-view.png)
 
-## Customize configuration
-
-See [Vite Configuration Reference](https://vite.dev/config/).
-
-## Project Setup
+## Consumer Setup
 
 ```sh
 npm install
 ```
 
-### Compile and Hot-Reload for Development
+### Run consumer in development mode
 
 ```sh
 npm run dev
 ```
 
-### Compile and Minify for Production
+The page will be visible at: http://localhost:5173
 
+_Note: For this page to load correct it will need the provider started as well._
+
+### Run tests
 ```sh
-npm run build
+npm run test
 ```
